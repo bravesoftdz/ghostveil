@@ -12,6 +12,8 @@
 #include <Vcl.ExtCtrls.hpp>
 #include <Vcl.Menus.hpp>
 //---------------------------------------------------------------------------
+#define GHOST_HOTKEY 0x0000 //0x0000 through 0xBFFF are valid
+
 class TfrmGhostVeil : public TForm
 {
 __published:	// IDE-managed Components
@@ -27,6 +29,10 @@ __published:	// IDE-managed Components
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormDestroy(TObject *Sender);
 private:	// User declarations
+	MESSAGE void __fastcall WMHotKey( TWMHotKey &Message );
+
+	bool hotkeyRegistered;
+
 	DWORD lastStyle;
 	DWORD exStyle, newExStyle;
 	HWND__* hwnd;
@@ -38,11 +44,9 @@ public:		// User declarations
 
 	__fastcall TfrmGhostVeil(TComponent* Owner);
 
-	//hotkey stuff
-	void __fastcall OnHotKey(TWMHotKey &hotkey);
 	BEGIN_MESSAGE_MAP
-		VCL_MESSAGE_HANDLER(WM_HOTKEY, TWMHotKey, OnHotKey);
-	END_MESSAGE_MAP(TForm)
+		VCL_MESSAGE_HANDLER( WM_HOTKEY, TWMHotKey, WMHotKey )
+	END_MESSAGE_MAP( TForm )
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TfrmGhostVeil *frmGhostVeil;

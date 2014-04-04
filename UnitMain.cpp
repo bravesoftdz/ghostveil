@@ -61,23 +61,38 @@ void __fastcall TfrmGhostVeil::btnGhostClick(TObject *Sender)
 
 void __fastcall TfrmGhostVeil::FormCreate(TObject *Sender)
 {
-	RegisterHotKey(this->Handle, 1, MOD_WIN, 65 );
+	hotkeyRegistered = RegisterHotKey( Handle,
+		GHOST_HOTKEY,
+		MOD_ALT | MOD_WIN,
+		0x47
+	);
+
+	if( ! hotkeyRegistered )
+	{
+		ShowMessage( "Unable to assign Win+Alt+G as hotkey." );
+	}
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TfrmGhostVeil::FormDestroy(TObject *Sender)
 {
-	UnregisterHotKey(this->Handle, 1);
+	if( hotkeyRegistered )
+	{
+		UnregisterHotKey( Handle, GHOST_HOTKEY );
+	}
 }
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
-void __fastcall TfrmGhostVeil::OnHotKey(TWMHotKey& hotkey)
+void __fastcall TfrmGhostVeil::WMHotKey(TWMHotKey& Message)
 {
-   hwnd = GetParent(GetWindowAtMouse());
-   if (!IsGhosted(hwnd)) {
-		GhostIt(hwnd);
-   } else{
-	   UnGhostIt(hwnd);
-   }
-   ShowMessage("hotkey");
+	TForm::Dispatch( &Message );
+	if( Message.HotKey == GHOST_HOTKEY )
+	{
+		   hwnd = GetForegroundWindow();
+		   if (!IsGhosted(hwnd)) {
+				GhostIt(hwnd);
+		   } else{
+			   UnGhostIt(hwnd);
+		   }
+	}
 }

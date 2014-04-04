@@ -28,7 +28,7 @@ object frmGhostVeil: TfrmGhostVeil
     Width = 105
     Height = 20
     Max = 255
-    Position = 55
+    Position = 35
     ShowSelRange = False
     TabOrder = 1
     ThumbLength = 15
