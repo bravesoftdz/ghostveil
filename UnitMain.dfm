@@ -2,8 +2,8 @@ object frmGhostVeil: TfrmGhostVeil
   Left = 0
   Top = 0
   Caption = 'GhostVeil'
-  ClientHeight = 143
-  ClientWidth = 125
+  ClientHeight = 193
+  ClientWidth = 198
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,7 +25,7 @@ object frmGhostVeil: TfrmGhostVeil
   object trackBarTransparency: TTrackBar
     Left = 8
     Top = 13
-    Width = 105
+    Width = 191
     Height = 20
     Max = 255
     Position = 35
@@ -34,10 +34,10 @@ object frmGhostVeil: TfrmGhostVeil
     ThumbLength = 15
   end
   object btnGhost: TBitBtn
-    Left = 8
-    Top = 39
-    Width = 105
-    Height = 96
+    Left = 64
+    Top = 112
+    Width = 65
+    Height = 65
     Glyph.Data = {
       2E3A0000424D2E3A000000000000360000002800000046000000460000000100
       180000000000F8390000182E0000182E00000000000000000000FFFFFFFFFFFF
@@ -505,8 +505,37 @@ object frmGhostVeil: TfrmGhostVeil
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000}
+    Layout = blGlyphBottom
     TabOrder = 0
     OnClick = btnGhostClick
+  end
+  object cbxMouseOverUnghost: TCheckBox
+    Left = 8
+    Top = 39
+    Width = 185
+    Height = 43
+    Caption = 
+      'Allow windows to be unghosted by moving the mouse over the windo' +
+      'w and holding'
+    Checked = True
+    State = cbChecked
+    TabOrder = 2
+    WordWrap = True
+    OnClick = cbxMouseOverUnghostClick
+  end
+  object ComboBox1: TComboBox
+    Left = 123
+    Top = 67
+    Width = 59
+    Height = 21
+    Style = csDropDownList
+    ItemIndex = 0
+    TabOrder = 3
+    Text = 'Shift'
+    Items.Strings = (
+      'Shift'
+      'Alt'
+      'Ctrl')
   end
   object PopupMenu1: TPopupMenu
     Top = 112
@@ -1167,6 +1196,12 @@ object frmGhostVeil: TfrmGhostVeil
     PopupMenu = PopupMenu1
     Visible = True
     Left = 96
+    Top = 112
+  end
+  object tmrMouseOver: TTimer
+    Interval = 30
+    OnTimer = tmrMouseOverTimer
+    Left = 48
     Top = 112
   end
 end
